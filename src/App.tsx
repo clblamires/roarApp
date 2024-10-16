@@ -10,10 +10,9 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
+import { logIn, home, school, person, calendar } from 'ionicons/icons';
+import Login from './pages/Login';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -44,44 +43,76 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Today from './pages/Today';
+import Schedule from './pages/Schedule';
+import Resources from './pages/Resources';
+import Contact from './pages/Contact';
+import Profile from './pages/Profile';
+import { useEffect } from 'react';
+import ProtectedRoute from './components/ProtectedRoute';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/tab1">
-            <Tab1 />
-          </Route>
-          <Route exact path="/tab2">
-            <Tab2 />
-          </Route>
-          <Route path="/tab3">
-            <Tab3 />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/tab1" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon aria-hidden="true" icon={triangle} />
-            <IonLabel>Tab 1</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon aria-hidden="true" icon={ellipse} />
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon aria-hidden="true" icon={square} />
-            <IonLabel>Tab 3</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+
+
+
+  return(
+    <IonApp>
+      <IonReactRouter>
+        <ProtectedRoute>
+          <IonTabs>
+            <IonRouterOutlet>
+              <Route path="/login" component={Login} exact={true} />
+              <Route path="/today" component={Today} exact={true} />
+              <Route path="/profile" component={Profile} exact={true} />
+              <Route path="/contact" component={Contact} exact={true} />
+              <Route path="/resources" component={Resources} exact={true} />
+              <Route path="/schedule" component={Schedule} exact={true} />
+              <Route exact path="/" render={() => <Redirect to="/today" />} />
+            </IonRouterOutlet>
+
+
+
+            <IonTabBar slot="bottom">
+
+              {/* Today */}
+              <IonTabButton tab="tab1" href="/today">
+                <IonIcon aria-hidden="true" icon={home}/>
+                <IonLabel>Today</IonLabel>
+              </IonTabButton>
+
+              {/* Schedule */}
+              <IonTabButton tab="tab2" href="/schedule">
+                <IonIcon aria-hidden="true" icon={calendar}></IonIcon>
+                <IonLabel>Schedule</IonLabel>
+              </IonTabButton>
+
+              {/* Profile */}
+              <IonTabButton tab="tab3" href="/profile">
+                <IonIcon aria-hidden="true" icon={person}></IonIcon>
+                <IonLabel>Profile</IonLabel>
+              </IonTabButton>
+
+              {/* Resources */}
+              <IonTabButton tab="tab4" href="/resources">
+                <IonIcon aria-hidden="true" icon={school}></IonIcon>
+                <IonLabel>Resources</IonLabel>
+              </IonTabButton>
+
+              {/* Contact */}
+              <IonTabButton tab="tab5" href="/contact">
+                <IonIcon aria-hidden="true" icon={home}></IonIcon>
+                <IonLabel>Contact</IonLabel>
+              </IonTabButton>
+
+            </IonTabBar>
+          </IonTabs>
+
+        </ProtectedRoute>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
 
 export default App;
