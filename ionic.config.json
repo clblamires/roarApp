@@ -1,0 +1,7 @@
+{
+  "name": "roarApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
