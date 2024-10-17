@@ -51,6 +51,7 @@ import Profile from './pages/Profile';
 import { useEffect } from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
 import { MasterDataProvider } from './context/MasterDataContext';
+import PodDetails from './pages/PodDetails';
 
 setupIonicReact();
 
@@ -71,6 +72,7 @@ const App: React.FC = () => {
                 <Route path="/contact" component={Contact} exact={true} />
                 <Route path="/resources" component={Resources} exact={true} />
                 <Route path="/schedule" component={Schedule} exact={true} />
+                <Route path="/pods/:podId" exact component={PodDetails} />
                 <Route exact path="/" render={() => <Redirect to="/today" />} />
               </IonRouterOutlet>
               <IonTabBar slot="bottom">

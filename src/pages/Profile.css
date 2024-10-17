@@ -5,16 +5,40 @@
   width: 100%;
   height: 50vh;
   background-color: #981E32;
-  z-index: 1;
+  z-index: -1;
   background-image: url('../assets/images/wsu-logo.svg'); /* Path to SVG */
   background-repeat: repeat; /* Repeat the SVG */
 }
 
+.custom-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-title {
+  /* font-size: 24px; */
+  font-weight: bold;
+  text-align: center;
+}
+.profile-subtitle {
+  font-size: 16px;
+  color: gray;
+  text-align: center;
+}
+
+ion-avatar {
+  /* --border-radius: 14px; */
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 150px;
+  height: 150px;
+}
 
 
 .profile-card {
-  z-index: 2;
-    margin-top: 10vh;
+    z-index: 2;
+    margin-top: 5vh;
     width: 90%;
     max-width: 500px;
     margin-left: auto;
@@ -23,30 +47,4 @@
     border-radius: 12px;
     overflow: hidden;
   }
-  /*
-  .profile-avatar {
-    display: flex;
-    justify-content: center;
-    margin-top: -40px;
-  }
-  
-  .profile-avatar img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 4px solid white;
-  }
-  
-  .profile-name {
-    text-align: center;
-    margin-top: 10px;
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .profile-pronouns {
-    text-align: center;
-    color: gray;
-    margin-top: 5px;
-  }
-   */
+

@@ -7,7 +7,7 @@ export const fetchMasterData = async () => {
         const url = await getDownloadURL(fileRef);
         const response = await fetch( url );
         const data = await response.json();
-        console.log("Master data loaded:", data );
+        // console.log("Master data loaded:", data );
         return data;
     } catch (error) {
         console.error("Error fetching master data:", error);

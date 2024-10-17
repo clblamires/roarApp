@@ -1,17 +1,34 @@
-import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg } from '@ionic/react';
+import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg, IonList} from '@ionic/react';
 import "./Profile.css";
-import { calendar, person, peopleCircle } from 'ionicons/icons';
+import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline } from 'ionicons/icons';
 import { useMasterData } from '../hooks/useMasterData';
+import { useHistory } from 'react-router';
 
 const Profile: React.FC = () => {
     const { data, loading, error } = useMasterData();
     const studentId = JSON.parse(localStorage.getItem('student') || '{}')//.student_id;
+    const history = useHistory();
     
     if( loading ) return <IonSpinner name="crescent"/>;
     if( error ) return <p>Error loading data</p>;
 
     const student = data?.students[studentId];
-    const pod = data?.pods[student.pod_id]?.pod_name ?? "No pod assigned";
+    console.log(student);
+    const pod = data?.pods[student.pod_id] ?? "No pod assigned";
+
+    // Birthday formatting
+    const formatBirthday = ( dateString: string): string => {
+        const date = new Date(dateString );
+        return date.toLocaleDateString('en-US', {
+            month: "long",
+            day: "numeric"
+        });
+    }
+
+    // clickable pod link!
+    const handlePodClick = () => {
+        history.push(`/pods/${student.pod_id}`);
+    }
 
 
     
@@ -21,52 +38,45 @@ const Profile: React.FC = () => {
         <IonPage>
             <IonContent fullscreen className="">
                 <div className="wsu-background"></div>
-
                 <IonAvatar>
-                    <IonImg
+                    <img
                         alt="Avatar"
-                        src={"https://www.gravatar.com/avatar"}
-                    ></IonImg>
-                    <p>Image</p>
+                        src={`https://www.gravatar.com/avatar`}
+                    />
                 </IonAvatar>
                 <IonCard className="profile-card">
-                    <IonCardHeader>
-                        <IonAvatar className="profile-avatar">
-                            <img
-                                alt="Avatar"
-                                src={`https://www.gravatar.com/avatar`}
-                            />
-                        </IonAvatar>
-                        <IonCardTitle className="profile-name">
+                    <IonCardHeader className="custom-card-header">
+                        <IonCardTitle className="profile-title">
                             { student.first_name } { student.last_name }
                         </IonCardTitle>
-                        <IonCardSubtitle className="profile-pronouns">
-                            { student.pronouns } - { student.year }
+                        <IonCardSubtitle className="profile-subtitle">
+                            { student.pronouns }
                         </IonCardSubtitle>
                     </IonCardHeader>
                     <IonCardContent>
-                        <IonGrid>
-                            <IonRow>
-                                <IonCol size="12">
-                                    <IonItem lines="none">
-                                        <IonIcon icon={calendar} slot="start"></IonIcon>
-                                        <IonLabel>Birthday: {student.date_of_birth}</IonLabel>
-                                    </IonItem>
-                                </IonCol>
-                                <IonCol size="12">
-                                    <IonItem lines="none">
-                                        <IonIcon icon={person} slot="start"></IonIcon>
-                                        <IonLabel>Student ID: {student.student_id}</IonLabel>
-                                    </IonItem>
-                                </IonCol>
-                                <IonCol size="12">
-                                    <IonItem lines="none">
-                                        <IonIcon icon={peopleCircle} slot="start"></IonIcon>
-                                        <IonLabel>Pod: {pod}</IonLabel>
-                                    </IonItem>
-                                </IonCol>
-                            </IonRow>
-                        </IonGrid>
+
+                        <IonList inset={true} lines="none">
+                            <IonItem>
+                                <IonIcon icon={cardOutline} slot="start"></IonIcon>
+                                <IonLabel><b>WSU ID:</b> {student.student_id}</IonLabel>
+                            </IonItem>
+                            <IonItem>
+                                <IonIcon icon={mailOutline} slot="start"></IonIcon>
+                                <IonLabel>{ student.email_address }</IonLabel>
+                            </IonItem>
+                            <IonItem>
+                                <IonIcon icon={calendarOutline} slot="start"></IonIcon>
+                                <IonLabel><b>Birthday:</b> { formatBirthday(student.date_of_birth) }</IonLabel>
+                            </IonItem>
+                            <IonItem button onClick={handlePodClick}>
+                                <IonIcon icon={peopleCircle} slot="start"></IonIcon>
+                                <IonLabel><b>Pod:</b> {pod.pod_name}</IonLabel>
+                            </IonItem>
+                            <IonItem>
+                                <IonIcon icon={schoolOutline} slot="start"></IonIcon>
+                                <IonLabel><b>ROAR:</b> {student.year}</IonLabel>
+                            </IonItem>
+                        </IonList>
                     </IonCardContent>
                 </IonCard>
             </IonContent>
