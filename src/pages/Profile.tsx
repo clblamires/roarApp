@@ -1,20 +1,34 @@
-import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner } from '@ionic/react';
 import "./Profile.css";
 import { calendar, person } from 'ionicons/icons';
+import { useMasterData } from '../hooks/useMasterData';
 
 const Profile: React.FC = () => {
+    const { data, loading, error } = useMasterData();
+    const studentId = JSON.parse(localStorage.getItem('student') || '{}')//.student_id;
+    
+    if( loading ) return <IonSpinner name="crescent"/>;
+    if( error ) return <p>Error loading data</p>;
 
-    const student = JSON.parse( localStorage.getItem("student") || '{}' );
+    const student = data?.students[studentId];
+    console.log("Student data: ", student);
+
+    // const student = data.find(
+    //     (entry: any) => entry.type === 'table' && entry.name === 'Students'
+    // )?.data.find(
+    //     (s:any) =>s.student_id === studentId
+    // );
+    // const pod = data.find(
+    //     (entry: any) => entry.type === ""
+    // )
+
+    
     const pageTitle = "Profile";
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>{ pageTitle }</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent fullscreen className="ion-padding">
+            <IonContent fullscreen className="">
+                <div className="wsu-background"></div>
                 <IonCard className="profile-card">
                     <IonCardHeader>
                         <IonAvatar className="profile-avatar">

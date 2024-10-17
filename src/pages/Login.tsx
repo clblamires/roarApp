@@ -5,6 +5,8 @@ import { ref, getDownloadURL } from 'firebase/storage';
 import { useHistory } from 'react-router-dom';
 import "./Login.css";
 
+import { getStudents } from '../services/firebaseService';
+
 const Login: React.FC = () => {
 
     const history = useHistory();
@@ -16,24 +18,10 @@ const Login: React.FC = () => {
     const [toastMsg, setToastMsg] = useState('');
     const [isAuth, setIsAuth] = useState(false);
 
-    // Get student data from online
-    const fetchStudentsData = async () => {
-        try {
-            const studentsRef = ref( storage, 'appdata/Students.json' );
-            const url = await getDownloadURL( studentsRef );
-            const response = await fetch(url);
-            const studentsData = await response.json();
-            return studentsData;
-        } catch( err ){
-            console.error("Error fetching student data:", err );
-            return null;
-        }
-    }
-
 
     // Login function :)
     const handleLogin = async () => {
-        const studentsData = await fetchStudentsData();
+        const studentsData = await getStudents();
         if( studentsData ){
             console.log(studentsData);
             const student = studentsData[2].data.find(
@@ -41,7 +29,7 @@ const Login: React.FC = () => {
             );
             if( student ){
                 console.log(student); // just checking :)
-                localStorage.setItem("student", JSON.stringify(student));
+                localStorage.setItem("student", JSON.stringify(student.student_id));
                 history.push('/profile');
             } else {
                 setToastMsg("Invalid email or student ID");
