@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchMasterData } from '../services/data';
+import { fetchMasterData } from '../services/dataService';
 
 interface MasterData {
   students: { [key: string]: any };

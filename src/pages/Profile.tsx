@@ -1,6 +1,6 @@
-import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner } from '@ionic/react';
+import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg } from '@ionic/react';
 import "./Profile.css";
-import { calendar, person } from 'ionicons/icons';
+import { calendar, person, peopleCircle } from 'ionicons/icons';
 import { useMasterData } from '../hooks/useMasterData';
 
 const Profile: React.FC = () => {
@@ -11,16 +11,8 @@ const Profile: React.FC = () => {
     if( error ) return <p>Error loading data</p>;
 
     const student = data?.students[studentId];
-    console.log("Student data: ", student);
+    const pod = data?.pods[student.pod_id]?.pod_name ?? "No pod assigned";
 
-    // const student = data.find(
-    //     (entry: any) => entry.type === 'table' && entry.name === 'Students'
-    // )?.data.find(
-    //     (s:any) =>s.student_id === studentId
-    // );
-    // const pod = data.find(
-    //     (entry: any) => entry.type === ""
-    // )
 
     
     const pageTitle = "Profile";
@@ -29,6 +21,14 @@ const Profile: React.FC = () => {
         <IonPage>
             <IonContent fullscreen className="">
                 <div className="wsu-background"></div>
+
+                <IonAvatar>
+                    <IonImg
+                        alt="Avatar"
+                        src={"https://www.gravatar.com/avatar"}
+                    ></IonImg>
+                    <p>Image</p>
+                </IonAvatar>
                 <IonCard className="profile-card">
                     <IonCardHeader>
                         <IonAvatar className="profile-avatar">
@@ -57,6 +57,12 @@ const Profile: React.FC = () => {
                                     <IonItem lines="none">
                                         <IonIcon icon={person} slot="start"></IonIcon>
                                         <IonLabel>Student ID: {student.student_id}</IonLabel>
+                                    </IonItem>
+                                </IonCol>
+                                <IonCol size="12">
+                                    <IonItem lines="none">
+                                        <IonIcon icon={peopleCircle} slot="start"></IonIcon>
+                                        <IonLabel>Pod: {pod}</IonLabel>
                                     </IonItem>
                                 </IonCol>
                             </IonRow>

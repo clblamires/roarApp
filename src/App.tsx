@@ -50,6 +50,7 @@ import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import { useEffect } from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
+import { MasterDataProvider } from './context/MasterDataContext';
 
 setupIonicReact();
 
@@ -60,56 +61,55 @@ const App: React.FC = () => {
   return(
     <IonApp>
       <IonReactRouter>
-        <ProtectedRoute>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Route path="/login" component={Login} exact={true} />
-              <Route path="/today" component={Today} exact={true} />
-              <Route path="/profile" component={Profile} exact={true} />
-              <Route path="/contact" component={Contact} exact={true} />
-              <Route path="/resources" component={Resources} exact={true} />
-              <Route path="/schedule" component={Schedule} exact={true} />
-              <Route exact path="/" render={() => <Redirect to="/today" />} />
-            </IonRouterOutlet>
+        <MasterDataProvider>
+          <ProtectedRoute>
+            <IonTabs>
+              <IonRouterOutlet>
+                <Route path="/login" component={Login} exact={true} />
+                <Route path="/today" component={Today} exact={true} />
+                <Route path="/profile" component={Profile} exact={true} />
+                <Route path="/contact" component={Contact} exact={true} />
+                <Route path="/resources" component={Resources} exact={true} />
+                <Route path="/schedule" component={Schedule} exact={true} />
+                <Route exact path="/" render={() => <Redirect to="/today" />} />
+              </IonRouterOutlet>
+              <IonTabBar slot="bottom">
+                {/* Today */}
+                <IonTabButton tab="tab1" href="/today">
+                  <IonIcon aria-hidden="true" icon={home}/>
+                  <IonLabel>Today</IonLabel>
+                </IonTabButton>
 
+                {/* Schedule */}
+                <IonTabButton tab="tab2" href="/schedule">
+                  <IonIcon aria-hidden="true" icon={calendar}></IonIcon>
+                  <IonLabel>Schedule</IonLabel>
+                </IonTabButton>
 
+                {/* Profile */}
+                <IonTabButton tab="tab3" href="/profile">
+                  <IonIcon aria-hidden="true" icon={person}></IonIcon>
+                  <IonLabel>Profile</IonLabel>
+                </IonTabButton>
 
-            <IonTabBar slot="bottom">
+                {/* Resources */}
+                <IonTabButton tab="tab4" href="/resources">
+                  <IonIcon aria-hidden="true" icon={school}></IonIcon>
+                  <IonLabel>Resources</IonLabel>
+                </IonTabButton>
 
-              {/* Today */}
-              <IonTabButton tab="tab1" href="/today">
-                <IonIcon aria-hidden="true" icon={home}/>
-                <IonLabel>Today</IonLabel>
-              </IonTabButton>
+                {/* Contact */}
+                <IonTabButton tab="tab5" href="/contact">
+                  <IonIcon aria-hidden="true" icon={home}></IonIcon>
+                  <IonLabel>Contact</IonLabel>
+                </IonTabButton>
 
-              {/* Schedule */}
-              <IonTabButton tab="tab2" href="/schedule">
-                <IonIcon aria-hidden="true" icon={calendar}></IonIcon>
-                <IonLabel>Schedule</IonLabel>
-              </IonTabButton>
+              </IonTabBar>
+            </IonTabs>
 
-              {/* Profile */}
-              <IonTabButton tab="tab3" href="/profile">
-                <IonIcon aria-hidden="true" icon={person}></IonIcon>
-                <IonLabel>Profile</IonLabel>
-              </IonTabButton>
+          </ProtectedRoute>
 
-              {/* Resources */}
-              <IonTabButton tab="tab4" href="/resources">
-                <IonIcon aria-hidden="true" icon={school}></IonIcon>
-                <IonLabel>Resources</IonLabel>
-              </IonTabButton>
-
-              {/* Contact */}
-              <IonTabButton tab="tab5" href="/contact">
-                <IonIcon aria-hidden="true" icon={home}></IonIcon>
-                <IonLabel>Contact</IonLabel>
-              </IonTabButton>
-
-            </IonTabBar>
-          </IonTabs>
-
-        </ProtectedRoute>
+        </MasterDataProvider>
       </IonReactRouter>
     </IonApp>
   );
