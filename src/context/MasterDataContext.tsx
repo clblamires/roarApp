@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { fetchMasterData } from '../services/dataService';
+// import { transformData } from '../hooks/useMasterData';
 
 interface MasterDataContextType {
   data: any | null;
@@ -7,7 +8,7 @@ interface MasterDataContextType {
   error: any | null;
 }
 
-const MasterDataContext = createContext<MasterDataContextType | undefined>(undefined);
+export const MasterDataContext = createContext<MasterDataContextType | undefined>(undefined);
 
 export const MasterDataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [data, setData] = useState<any>(null);

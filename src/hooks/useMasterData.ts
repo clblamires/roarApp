@@ -85,5 +85,3 @@ export const useMasterData = () => {
   return { data, loading, error };
 };
 
-
-// data.students["the thing we're looking for!"]
