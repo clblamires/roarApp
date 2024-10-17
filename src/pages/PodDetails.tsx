@@ -11,6 +11,8 @@ import {
     IonItem,
     IonLabel,
     IonSpinner,
+    IonButtons,
+    IonBackButton,
   } from '@ionic/react';
   import { useParams } from 'react-router-dom';
   import { useMasterData } from '../hooks/useMasterData';
@@ -37,6 +39,9 @@ import {
   
     const pod = data?.pods[podId]; // Safely access the pod
     const gradAssistant = data?.staff[pod.grad_assistant_id];
+    const coach = data?.staff[pod.academic_coach_id];
+    const jobCoach1 = data?.staff[pod.job_coach_1_id];
+    const jobCoach2 = data?.staff[pod.job_coach_2_id];
   
     if (!pod) {
       return <p>Pod not found.</p>; // Handle case where pod is missing
@@ -44,7 +49,13 @@ import {
   
     return (
       <IonPage>
-
+        <IonHeader>
+            <IonToolbar>
+                <IonButtons slot="start">
+                    <IonBackButton></IonBackButton>
+                </IonButtons>
+            </IonToolbar>
+        </IonHeader>
         <IonContent fullscreen className="ion-padding">
           <IonCard>
             <IonCardHeader>
@@ -55,11 +66,11 @@ import {
                 <IonLabel>Grad Assistant ID: {gradAssistant.staff_name}</IonLabel>
               </IonItem>
               <IonItem>
-                <IonLabel>Academic Coach ID: {pod.academic_coach_id}</IonLabel>
+                <IonLabel>Academic Coach ID: {coach.staff_name}</IonLabel>
               </IonItem>
               <IonItem>
                 <IonLabel>
-                  Job Coaches: {pod.job_coach_1_id}, {pod.job_coach_2_id}
+                  Job Coaches: {jobCoach1.staff_name} &amp; {jobCoach2.staff_name}
                 </IonLabel>
               </IonItem>
             </IonCardContent>
