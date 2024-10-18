@@ -14,7 +14,7 @@ const Profile: React.FC = () => {
     const [birthdayToastIsOpen, setBirthdayToastIsOpen] = useState(false);
     
     if( loading ) return <IonSpinner name="crescent"/>;
-    if( error ) return <p>Error loading data</p>;
+    // if( error ) return <p>Error loading data</p>;
 
     const student = data?.students[studentId];
     const pod = data?.pods[student.pod_id] ?? "No pod assigned";

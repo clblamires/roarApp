@@ -15,11 +15,13 @@ interface MasterData {
 interface AppDataContextType {
   data: MasterData | null;
   loading: boolean;
+  getStaffById: (id:string) => any| undefined;
 }
 
 const AppDataContext = createContext<AppDataContextType>({
   data: null,
   loading: true,
+  getStaffById: () => undefined
 });
 
 export const useAppData = () => useContext(AppDataContext);
@@ -96,8 +98,11 @@ export const AppDataProvider = ({ children }: AppDataProviderProps) => {
     loadData();
   }, []);
 
+  // Helper functions :)
+  const getStaffById = (id:string) => data?.staff.find( (s) => s.staff_id === id );
+
   return (
-    <AppDataContext.Provider value={{ data, loading }}>
+    <AppDataContext.Provider value={{ data, loading, getStaffById }}>
       {children}
     </AppDataContext.Provider>
   );

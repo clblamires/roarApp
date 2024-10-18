@@ -8,7 +8,6 @@ const Schedule: React.FC = () => {
     // const staff = data?.staff;
     const enrollments = data?.enrollments || [];
     const schedule = enrollments?.filter( (course) => course.student_id === "0123456789");
-    console.log(schedule)
 
     const pageTitle = "Schedule";
 

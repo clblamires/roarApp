@@ -17,7 +17,8 @@ import {
 } from '@ionic/react';
 import './PodDetails.css';
 import { useParams } from 'react-router-dom';
-import { useMasterData } from '../hooks/useMasterData';
+// import { useMasterData } from '../hooks/useMasterData';
+import { useAppData } from '../context/appDataContext';
 
 interface PodDetailsParams {
 	podId: string;
@@ -25,7 +26,8 @@ interface PodDetailsParams {
 
 const PodDetails: React.FC = () => {
 	const { podId } = useParams<PodDetailsParams>(); // Get the podId from route params
-	const { data, loading, error } = useMasterData(); // Access master data
+	// const { data, loading, error } = useMasterData(); // Access master data
+	const { data, loading, getStaffById } = useAppData();
 
 	if (loading) {
 		return (
@@ -34,17 +36,14 @@ const PodDetails: React.FC = () => {
 			</IonContent>
 		);
 	}
+	const pod = data?.pods.find( (pod) => pod.pod_id === podId );
+	const gradAssistant = getStaffById( pod?.grad_assistant_id );
+	const coach = getStaffById( pod?.academic_coach_id );
+	const jobCoach1 = getStaffById( pod?.job_coach_1_id );
+	const jobCoach2 = getStaffById( pod?.job_coach_2_id );
+	const ala = getStaffById( pod?.ala_id );
 
-	if (error) {
-		return <p>Error loading pod information.</p>;
-	}
 
-	const pod = data?.pods[podId]; // Safely access the pod
-	const gradAssistant = data?.staff[pod?.grad_assistant_id] ?? "None";
-	const coach = data?.staff[pod?.academic_coach_id] ?? "None";
-	const jobCoach1 = data?.staff[pod?.job_coach_1_id] ?? "None";
-	const jobCoach2 = data?.staff[pod?.job_coach_2_id] ?? "None";
-	const ala = data?.staff[pod?.ala_id] ?? "None";
 
 	if (!pod) {
 		return <p>Pod not found.</p>; // Handle case where pod is missing

@@ -54,7 +54,7 @@ const Contact: React.FC = () => {
                 </IonButton>
                 <IonList lines="full">
                     <IonListHeader color="primary" className="contact-list-header">Administration</IonListHeader>
-                    { admin.map( (member) => 
+                    { admin.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
                             <IonLabel>
@@ -70,7 +70,7 @@ const Contact: React.FC = () => {
                     )}
 
                     <IonListHeader color="primary" className="contact-list-header">Graduate Assistants</IonListHeader>
-                    { grad.map( (member) => 
+                    { grad.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
                             <IonLabel>
@@ -86,7 +86,7 @@ const Contact: React.FC = () => {
                     )}
 
                     <IonListHeader color="primary" className="contact-list-header">Academic Coaches</IonListHeader>
-                    { academicCoach.map( (member) => 
+                    { academicCoach.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
                             <IonLabel>
@@ -102,7 +102,7 @@ const Contact: React.FC = () => {
                     )}
 
                     <IonListHeader color="primary" className="contact-list-header">Job Coaches</IonListHeader>
-                    { jobCoach.map( (member) => 
+                    { jobCoach.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
                             <IonLabel>
@@ -118,7 +118,7 @@ const Contact: React.FC = () => {
                     )}
 
                     <IonListHeader color="primary" className="contact-list-header">Assistive Living Advisors</IonListHeader>
-                    { ala.map( (member) => 
+                    { ala.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
                             <IonLabel>
