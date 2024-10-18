@@ -1,4 +1,4 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonToast, IonRouterOutlet } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonToast, IonRouterOutlet, IonIcon } from '@ionic/react';
 import { useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, getDownloadURL } from 'firebase/storage';
@@ -6,6 +6,8 @@ import { useHistory } from 'react-router-dom';
 import "./Login.css";
 
 import { getStudents } from '../services/firebaseService';
+import { logIn } from 'ionicons/icons';
+import WSUBackground from '../components/WSUBackground';
 
 const Login: React.FC = () => {
 
@@ -47,7 +49,7 @@ const Login: React.FC = () => {
             <IonHeader>
             </IonHeader>
             <IonContent fullscreen className="ion-padding ion-text-center">
-
+                <WSUBackground/>
                 <IonCard className="login-card">
                     <IonCardHeader>
                         <IonCardTitle>Login</IonCardTitle>
@@ -78,6 +80,7 @@ const Login: React.FC = () => {
                             onClick={ handleLogin }
                             className="login-button"
                         >
+                            <IonIcon slot="start" icon={logIn}></IonIcon>
                             Login
                         </IonButton>
                     </IonCardContent>

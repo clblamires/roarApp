@@ -1,19 +1,22 @@
-import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg, IonList} from '@ionic/react';
+import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg, IonList, IonButton, IonRippleEffect, IonToast } from '@ionic/react';
 import "./Profile.css";
-import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline } from 'ionicons/icons';
+import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText } from 'ionicons/icons';
 import { useMasterData } from '../hooks/useMasterData';
 import { useHistory } from 'react-router';
+import { useEffect, useState } from 'react';
+import WSUBackground from '../components/WSUBackground';
 
 const Profile: React.FC = () => {
     const { data, loading, error } = useMasterData();
     const studentId = JSON.parse(localStorage.getItem('student') || '{}')//.student_id;
     const history = useHistory();
+    const [isBirthday, setIsBirthday] = useState(false);
+    const [birthdayToastIsOpen, setBirthdayToastIsOpen] = useState(false);
     
     if( loading ) return <IonSpinner name="crescent"/>;
     if( error ) return <p>Error loading data</p>;
 
     const student = data?.students[studentId];
-    console.log(student);
     const pod = data?.pods[student.pod_id] ?? "No pod assigned";
 
     // Birthday formatting
@@ -25,9 +28,38 @@ const Profile: React.FC = () => {
         });
     }
 
+    // helper function to check if today is the birthday!!!
+    const checkBirthday = (dob: string) => {
+        const today = new Date();
+        const birthday = new Date(dob);
+        return today.getUTCMonth() === birthday.getUTCMonth() && today.getUTCDate() === birthday.getUTCDate();
+    };
+
+    const birthdayMessage = () => {
+        if ( checkBirthday(student.date_of_birth)){
+            return (
+                    <div className="birthday-banner">
+                        <h2>🎉 Happy Birthday, {student.first_name}! 🎉</h2>
+                        <p>Wishing you a wonderful day filled with joy and celebration!</p>
+                    </div>
+            );
+        }
+        return null;
+    }
+
+
+
+
     // clickable pod link!
     const handlePodClick = () => {
         history.push(`/pods/${student.pod_id}`);
+    }
+
+    // clickable links
+    const openInBrowser = ( url: string ) => {
+        if( url ){
+            window.open(url, '_blank');
+        }
     }
 
 
@@ -37,13 +69,14 @@ const Profile: React.FC = () => {
     return (
         <IonPage>
             <IonContent fullscreen className="">
-                <div className="wsu-background"></div>
+                <WSUBackground/>
                 <IonAvatar>
                     <img
                         alt="Avatar"
                         src={`https://www.gravatar.com/avatar`}
                     />
                 </IonAvatar>
+                
                 <IonCard className="profile-card">
                     <IonCardHeader className="custom-card-header">
                         <IonCardTitle className="profile-title">
@@ -54,6 +87,8 @@ const Profile: React.FC = () => {
                         </IonCardSubtitle>
                     </IonCardHeader>
                     <IonCardContent>
+
+                        { birthdayMessage() }
 
                         <IonList inset={true} lines="none">
                             <IonItem>
@@ -77,6 +112,21 @@ const Profile: React.FC = () => {
                                 <IonLabel><b>ROAR:</b> {student.year}</IonLabel>
                             </IonItem>
                         </IonList>
+
+                        <IonButton
+                            onClick={ ()=> openInBrowser(student.pcp_website_url)}
+                            expand="block"
+                        >
+                            <IonIcon slot="start" icon={globe}></IonIcon>
+                            PCP Website
+                        </IonButton>
+                        <IonButton
+                            onClick={ ()=> openInBrowser(student.ilp_document_url)}
+                            expand="block"
+                        >
+                            <IonIcon slot="start" icon={documentText}></IonIcon>
+                            Learning Plan
+                        </IonButton>
                     </IonCardContent>
                 </IonCard>
             </IonContent>

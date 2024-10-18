@@ -1,0 +1,13 @@
+.wsu-background {
+    /* position: absolute; */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50vh;
+    background-color: #981E32;
+    z-index: -1;
+    background-image: url('../assets/images/wsu-logo.svg'); /* Path to SVG */
+    background-repeat: repeat; /* Repeat the SVG */
+    pointer-events: none;
+  }
