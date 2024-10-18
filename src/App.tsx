@@ -51,6 +51,7 @@ import Profile from './pages/Profile';
 import { useEffect } from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
 import { MasterDataProvider } from './context/MasterDataContext';
+import { AppDataProvider } from './context/appDataContext';
 import PodDetails from './pages/PodDetails';
 
 setupIonicReact();
@@ -62,7 +63,7 @@ const App: React.FC = () => {
   return(
     <IonApp>
       <IonReactRouter>
-        <MasterDataProvider>
+        <AppDataProvider>
           <ProtectedRoute>
             <IonTabs>
               <IonRouterOutlet>
@@ -111,7 +112,7 @@ const App: React.FC = () => {
 
           </ProtectedRoute>
 
-        </MasterDataProvider>
+        </AppDataProvider>
       </IonReactRouter>
     </IonApp>
   );

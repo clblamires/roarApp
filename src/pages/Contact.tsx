@@ -3,6 +3,7 @@ import WSUBackground from '../components/WSUBackground';
 import { useMasterData } from '../hooks/useMasterData';
 import { callOutline, mail, mailOutline, person, personCircleOutline, phonePortrait } from 'ionicons/icons';
 import { useEffect } from 'react';
+import { useAppData, AppDataProvider } from '../context/appDataContext';
 
 const ROLE_ORDER = [
     "Administrator",
@@ -13,48 +14,31 @@ const ROLE_ORDER = [
 ];
 
 const Contact: React.FC = () => {
-    const { data, loading, error } = useMasterData();
+    // const { data, loading, error } = useMasterData();
+    const { data, loading } = useAppData();
 
     if (loading) return <p>Loading...</p>;
-    if(error) return <p>Error loading data...</p>;
+    // if(error) return <p>Error loading data...</p>;
 
     const staff:any = data?.staff;
-    const admin = [
-        staff["1"],
-        staff["2"],
-        staff["3"],
-        staff["6"],
+    const admin:any = [
+        staff[0],
+        staff[1],
+        staff[2],
+        staff[3]
     ];
-    const grad = [
-        staff["7"],
-        staff["8"],
-        staff["9"],
+    const grad:any = [
+        staff[4], staff[5], staff[6]
     ];
-    const academicCoach = [
-        staff["15"],
-        staff["16"],
-        staff["17"],
-        staff["18"],
-        staff["19"],
+    const academicCoach:any = [
+        staff[10], staff[11], staff[12], staff[13], staff[14]
     ];
-    const jobCoach = [
-        staff["20"],
-        staff["21"],
-        staff["22"],
-        staff["23"],
-        staff["24"],
-        staff["25"],
+    const jobCoach:any = [
+        staff[15], staff[16], staff[17], staff[18], staff[19], staff[20]
     ];
-    const ala = [
-        staff["12"],
-        staff["13"],
-        staff["14"],
+    const ala:any = [
+        staff[7], staff[8], staff[9]
     ];
-
-
-
-    
-    
 
     return (
         <IonPage>

@@ -1,11 +1,14 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useMasterData } from '../hooks/useMasterData';
+// import { useMasterData } from '../hooks/useMasterData';
+import { AppDataProvider, useAppData } from '../context/appDataContext';
 
 const Schedule: React.FC = () => {
-    const { data, loading, error } = useMasterData();
-    const enrollments = data?.enrollments;
-    const schedule = enrollments?.filter( (course:any) => course.student_id == "0123456789" )
 
+    const { data, loading } = useAppData();
+    // const staff = data?.staff;
+    const enrollments = data?.enrollments || [];
+    const schedule = enrollments?.filter( (course) => course.student_id === "0123456789");
+    console.log(schedule)
 
     const pageTitle = "Schedule";
 
