@@ -1,4 +1,4 @@
-import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg, IonList, IonButton, IonRippleEffect, IonToast } from '@ionic/react';
+import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent,  IonIcon, IonItem, IonLabel, IonPage, IonAlert, IonList, IonButton } from '@ionic/react';
 import "./Profile.css";
 import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText, logOut } from 'ionicons/icons';
 import { useHistory } from 'react-router';
@@ -14,6 +14,7 @@ const Profile: React.FC = () => {
     const history = useHistory();
     const [isBirthday, setIsBirthday] = useState(false);
     const [birthdayToastIsOpen, setBirthdayToastIsOpen] = useState(false);
+    const [isAlertOpen, setIsAlertOpen] = useState<boolean>(false);
     
     if( loading ) return <LoadingData/>;
     // if( error ) return <p>Error loading data</p>;
@@ -65,9 +66,14 @@ const Profile: React.FC = () => {
     }
 
     // logout
-    const logOut = () => {
+    const handleLogout = () => {
         // localStorage.removeItem("student");
-        console.log("This logOut function will eventually work lol");
+        // window.location.href = "/login";
+        setIsAlertOpen(true);
+    }
+    const doLogout = () => {
+        localStorage.removeItem("student");
+        window.location.href = "/login";
     }
 
 
@@ -136,9 +142,37 @@ const Profile: React.FC = () => {
                             Learning Plan
                         </IonButton>
                         <hr/>
-                        
+
+                        <IonButton expand="block" fill="outline" onClick={handleLogout}>
+                            <IonIcon icon={logOut} slot="start"></IonIcon>
+                            Log Out
+                        </IonButton>
                     </IonCardContent>
                 </IonCard>
+
+
+                {/* Are You Sure? Logout Alert */}
+                <IonAlert 
+                    isOpen={isAlertOpen}
+                    header="Log Out"
+                    message="Are you sure you want to log out?"
+                    buttons={[
+                        {
+                            text: "Cancel",
+                            role: 'cancel',
+                            handler: () => {
+                                console.log("Alert canceled");
+                            }
+                        },
+                        {
+                            text: "Yes",
+                            role: "confirm",
+                            handler: doLogout
+                        }
+                    ]}
+                    onDidDismiss={()=>setIsAlertOpen(false)}
+                ></IonAlert>
+
             </IonContent>
         </IonPage>
     )

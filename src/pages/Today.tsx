@@ -1,10 +1,11 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonLabel, IonList, IonItem, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonAccordion, IonAccordionGroup } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonLabel, IonList, IonItem, IonImg, IonIcon, IonAccordion, IonAccordionGroup } from '@ionic/react';
 import LoadingData from '../components/LoadingData';
 import { useAppData } from '../context/appDataContext';
 import { useEffect, useState } from 'react';
 import { calendar, map, time, timeOutline } from 'ionicons/icons';
-import ExploreContainer from '../components/ExploreContainer';
 import NoClasses from '../components/NoClasses';
+import roarLogo from '../assets/images/roar_logo.png';
+import WeatherWidget from '../components/WeatherWidget';
 
 
 const Today: React.FC = () => {
@@ -47,10 +48,12 @@ const Today: React.FC = () => {
 		<IonPage>
 			<IonHeader>
 				<IonToolbar color="primary">
-					<IonTitle>Today's Schedule</IonTitle>
+					<IonTitle>{ pageTitle }</IonTitle>
 				</IonToolbar>
 			</IonHeader>
-			<IonContent>
+			<IonContent className="ion-padding">
+				<IonImg src={roarLogo}></IonImg>
+				<h1>Today's Classes</h1>
 				{ todayCourses.length > 0 ? (
 					<IonAccordionGroup>
 						{todayCourses.map((course) => (
@@ -99,6 +102,9 @@ const Today: React.FC = () => {
 				) : (
 					<NoClasses/>
 				)}
+
+
+				<WeatherWidget/>
 
 
 

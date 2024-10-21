@@ -48,7 +48,6 @@ import Schedule from './pages/Schedule';
 import Resources from './pages/Resources';
 import Contact from './pages/Contact';
 import Profile from './pages/Profile';
-import ProtectedRoute from './components/ProtectedRoute';
 import { AppDataProvider } from './context/appDataContext';
 import PodDetails from './pages/PodDetails';
 import { useEffect, useState } from 'react';
@@ -105,11 +104,6 @@ const App: React.FC = () => {
 									<IonLabel>Schedule</IonLabel>
 								</IonTabButton>
 
-								{/* Profile */}
-								<IonTabButton tab="tab3" href="/profile">
-									<IonIcon aria-hidden="true" icon={person}></IonIcon>
-									<IonLabel>Profile</IonLabel>
-								</IonTabButton>
 
 								{/* Resources */}
 								<IonTabButton tab="tab4" href="/resources">
@@ -123,6 +117,11 @@ const App: React.FC = () => {
 									<IonLabel>ROAR Staff</IonLabel>
 								</IonTabButton>
 
+								{/* Profile */}
+								<IonTabButton tab="tab3" href="/profile">
+									<IonIcon aria-hidden="true" icon={person}></IonIcon>
+									<IonLabel>Profile</IonLabel>
+								</IonTabButton>
 							</IonTabBar>
 						
 						</IonTabs>

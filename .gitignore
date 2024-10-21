@@ -31,3 +31,5 @@ yarn-error.log*
 .eslintcache
 
 src/firebaseConfig.ts
+
+.env
