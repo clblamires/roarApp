@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { logIn, home, school, person, calendar } from 'ionicons/icons';
+import { logIn, home, school, person, calendar, peopleCircle } from 'ionicons/icons';
 import Login from './pages/Login';
 
 
@@ -73,7 +73,7 @@ const App: React.FC = () => {
                 <Route path="/contact" component={Contact} exact={true} />
                 <Route path="/resources" component={Resources} exact={true} />
                 <Route path="/schedule" component={Schedule} exact={true} />
-                <Route path="/pods/:podId" exact component={PodDetails} />
+                <Route path="/pods/:podId" component={PodDetails} exact={true} />
                 <Route exact path="/" render={() => <Redirect to="/today" />} />
               </IonRouterOutlet>
               <IonTabBar slot="bottom">
@@ -103,8 +103,8 @@ const App: React.FC = () => {
 
                 {/* Contact */}
                 <IonTabButton tab="tab5" href="/contact">
-                  <IonIcon aria-hidden="true" icon={home}></IonIcon>
-                  <IonLabel>Contact</IonLabel>
+                  <IonIcon aria-hidden="true" icon={peopleCircle}></IonIcon>
+                  <IonLabel>ROAR Staff</IonLabel>
                 </IonTabButton>
 
               </IonTabBar>

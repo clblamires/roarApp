@@ -4,6 +4,7 @@ const Resources: React.FC = () => {
 
     const pageTitle = "Resources";
 
+    
     return (
         <IonPage>
             <IonHeader>

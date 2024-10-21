@@ -19,6 +19,7 @@ import './PodDetails.css';
 import { useParams } from 'react-router-dom';
 // import { useMasterData } from '../hooks/useMasterData';
 import { useAppData } from '../context/appDataContext';
+import LoadingData from '../components/LoadingData';
 
 interface PodDetailsParams {
 	podId: string;
@@ -27,16 +28,15 @@ interface PodDetailsParams {
 const PodDetails: React.FC = () => {
 	const { podId } = useParams<PodDetailsParams>(); // Get the podId from route params
 	// const { data, loading, error } = useMasterData(); // Access master data
-	const { data, loading, getStaffById } = useAppData();
+	const { data, loading, getStaffById, getPodById } = useAppData();
 
 	if (loading) {
 		return (
-			<IonContent className="ion-padding">
-				<IonSpinner name="crescent" />
-			</IonContent>
+			<LoadingData/>
 		);
 	}
-	const pod = data?.pods.find( (pod) => pod.pod_id === podId );
+	// const pod = data?.pods.find( (pod) => pod.pod_id === podId );
+	const pod = getPodById( podId );
 	const gradAssistant = getStaffById( pod?.grad_assistant_id );
 	const coach = getStaffById( pod?.academic_coach_id );
 	const jobCoach1 = getStaffById( pod?.job_coach_1_id );

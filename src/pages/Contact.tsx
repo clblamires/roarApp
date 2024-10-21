@@ -4,6 +4,7 @@ import { useMasterData } from '../hooks/useMasterData';
 import { callOutline, mail, mailOutline, person, personCircleOutline, phonePortrait } from 'ionicons/icons';
 import { useEffect } from 'react';
 import { useAppData, AppDataProvider } from '../context/appDataContext';
+import LoadingData from '../components/LoadingData';
 
 const ROLE_ORDER = [
     "Administrator",
@@ -15,30 +16,36 @@ const ROLE_ORDER = [
 
 const Contact: React.FC = () => {
     // const { data, loading, error } = useMasterData();
-    const { data, loading } = useAppData();
+    const { data, loading, getStaff } = useAppData();
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LoadingData/>;
     // if(error) return <p>Error loading data...</p>;
 
-    const staff:any = data?.staff;
-    const admin:any = [
-        staff[0],
-        staff[1],
-        staff[2],
-        staff[3]
-    ];
-    const grad:any = [
-        staff[4], staff[5], staff[6]
-    ];
-    const academicCoach:any = [
-        staff[10], staff[11], staff[12], staff[13], staff[14]
-    ];
-    const jobCoach:any = [
-        staff[15], staff[16], staff[17], staff[18], staff[19], staff[20]
-    ];
-    const ala:any = [
-        staff[7], staff[8], staff[9]
-    ];
+    const staff = getStaff();
+    const admin = staff.filter( (s:any ) => s.role == "Administrator" );
+    const grad = staff.filter( (s:any) => s.role == "Grad Assistant" );
+    const academicCoach = staff.filter( (s:any) => s.role == "Academic Coach");
+    const jobCoach = staff.filter( (s:any) => s.role == "Job Coach");
+    const ala = staff.filter( (s:any) => s.role == "ALA");
+
+    // const admin:any = [
+    //     staff[0],
+    //     staff[1],
+    //     staff[2],
+    //     staff[3]
+    // ];
+    // const grad:any = [
+    //     staff[4], staff[5], staff[6]
+    // ];
+    // const academicCoach:any = [
+    //     staff[10], staff[11], staff[12], staff[13], staff[14]
+    // ];
+    // const jobCoach:any = [
+    //     staff[15], staff[16], staff[17], staff[18], staff[19], staff[20]
+    // ];
+    // const ala:any = [
+    //     staff[7], staff[8], staff[9]
+    // ];
 
     return (
         <IonPage>

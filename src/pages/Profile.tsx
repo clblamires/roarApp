@@ -1,23 +1,26 @@
 import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg, IonList, IonButton, IonRippleEffect, IonToast } from '@ionic/react';
 import "./Profile.css";
-import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText } from 'ionicons/icons';
+import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText, logOut } from 'ionicons/icons';
 import { useMasterData } from '../hooks/useMasterData';
 import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 import WSUBackground from '../components/WSUBackground';
+import { useAppData } from '../context/appDataContext';
+import LoadingData from '../components/LoadingData';
 
 const Profile: React.FC = () => {
-    const { data, loading, error } = useMasterData();
-    const studentId = JSON.parse(localStorage.getItem('student') || '{}')//.student_id;
+    // const { data, loading, error } = useMasterData();
+    const { data, loading, getStudentById, getPodById } = useAppData();
+    const studentId = JSON.parse(localStorage.getItem('student') || '{}');
     const history = useHistory();
     const [isBirthday, setIsBirthday] = useState(false);
     const [birthdayToastIsOpen, setBirthdayToastIsOpen] = useState(false);
     
-    if( loading ) return <IonSpinner name="crescent"/>;
+    if( loading ) return <LoadingData/>;
     // if( error ) return <p>Error loading data</p>;
 
-    const student = data?.students[studentId];
-    const pod = data?.pods[student.pod_id] ?? "No pod assigned";
+    const student = getStudentById(studentId );
+    const pod = getPodById( student.pod_id ) ?? "No pod assignment";
 
     // Birthday formatting
     const formatBirthday = ( dateString: string): string => {
@@ -60,6 +63,12 @@ const Profile: React.FC = () => {
         if( url ){
             window.open(url, '_blank');
         }
+    }
+
+    // logout
+    const logOut = () => {
+        // localStorage.removeItem("student");
+        console.log("This logOut function will eventually work lol");
     }
 
 
@@ -127,6 +136,8 @@ const Profile: React.FC = () => {
                             <IonIcon slot="start" icon={documentText}></IonIcon>
                             Learning Plan
                         </IonButton>
+                        <hr/>
+                        
                     </IonCardContent>
                 </IonCard>
             </IonContent>

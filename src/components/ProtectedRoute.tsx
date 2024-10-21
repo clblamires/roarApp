@@ -1,4 +1,4 @@
-// ProtectedRoute.tsx
+// This file makes sure the user is logged in. If not, it redirects them to the login page
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
