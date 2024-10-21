@@ -6,6 +6,7 @@ import { calendar, map, time, timeOutline } from 'ionicons/icons';
 import NoClasses from '../components/NoClasses';
 import roarLogo from '../assets/images/roar_logo.png';
 import WeatherWidget from '../components/WeatherWidget';
+import AffirmationWidget from '../components/AffirmationWidget';
 
 
 const Today: React.FC = () => {
@@ -105,6 +106,7 @@ const Today: React.FC = () => {
 
 
 				<WeatherWidget/>
+				<AffirmationWidget/>
 
 
 
