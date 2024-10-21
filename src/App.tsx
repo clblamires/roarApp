@@ -1,13 +1,13 @@
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, useHistory } from 'react-router-dom';
 import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact
+	IonApp,
+	IonIcon,
+	IonLabel,
+	IonRouterOutlet,
+	IonTabBar,
+	IonTabButton,
+	IonTabs,
+	setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { logIn, home, school, person, calendar, peopleCircle } from 'ionicons/icons';
@@ -48,74 +48,99 @@ import Schedule from './pages/Schedule';
 import Resources from './pages/Resources';
 import Contact from './pages/Contact';
 import Profile from './pages/Profile';
-import { useEffect } from 'react';
 import ProtectedRoute from './components/ProtectedRoute';
-import { MasterDataProvider } from './context/MasterDataContext';
 import { AppDataProvider } from './context/appDataContext';
 import PodDetails from './pages/PodDetails';
+import { useEffect, useState } from 'react';
 
 setupIonicReact();
 
 const App: React.FC = () => {
 
 
+	// const studentId = JSON.parse(localStorage.getItem('student') || '{}');
 
-  return(
-    <IonApp>
-      <IonReactRouter>
-        <AppDataProvider>
-          <ProtectedRoute>
-            <IonTabs>
-              <IonRouterOutlet>
-                <Route path="/login" component={Login} exact={true} />
-                <Route path="/today" component={Today} exact={true} />
-                <Route path="/profile" component={Profile} exact={true} />
-                <Route path="/contact" component={Contact} exact={true} />
-                <Route path="/resources" component={Resources} exact={true} />
-                <Route path="/schedule" component={Schedule} exact={true} />
-                <Route path="/pods/:podId" component={PodDetails} exact={true} />
-                <Route exact path="/" render={() => <Redirect to="/today" />} />
-              </IonRouterOutlet>
-              <IonTabBar slot="bottom">
-                {/* Today */}
-                <IonTabButton tab="tab1" href="/today">
-                  <IonIcon aria-hidden="true" icon={home}/>
-                  <IonLabel>Today</IonLabel>
-                </IonTabButton>
+	const history = useHistory();
+	const [ isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-                {/* Schedule */}
-                <IonTabButton tab="tab2" href="/schedule">
-                  <IonIcon aria-hidden="true" icon={calendar}></IonIcon>
-                  <IonLabel>Schedule</IonLabel>
-                </IonTabButton>
+	useEffect( ()=> {
+		const student = localStorage.getItem('student');
+		if( student ){
+			setIsAuthenticated(true);
+		} else {
+			setIsAuthenticated(false);
+		}
+	}, [history]);
 
-                {/* Profile */}
-                <IonTabButton tab="tab3" href="/profile">
-                  <IonIcon aria-hidden="true" icon={person}></IonIcon>
-                  <IonLabel>Profile</IonLabel>
-                </IonTabButton>
 
-                {/* Resources */}
-                <IonTabButton tab="tab4" href="/resources">
-                  <IonIcon aria-hidden="true" icon={school}></IonIcon>
-                  <IonLabel>Resources</IonLabel>
-                </IonTabButton>
 
-                {/* Contact */}
-                <IonTabButton tab="tab5" href="/contact">
-                  <IonIcon aria-hidden="true" icon={peopleCircle}></IonIcon>
-                  <IonLabel>ROAR Staff</IonLabel>
-                </IonTabButton>
+	return (
+		<IonApp>
+			<IonReactRouter>
+				<AppDataProvider>
 
-              </IonTabBar>
-            </IonTabs>
+					{ isAuthenticated ? (
+						<IonTabs>
+							<IonRouterOutlet>
+								<Route path="/today" component={Today} exact={true} />
+								<Route path="/profile" component={Profile} exact={true} />
+								<Route path="/contact" component={Contact} exact={true} />
+								<Route path="/resources" component={Resources} exact={true} />
+								<Route path="/schedule" component={Schedule} exact={true} />
+								<Route path="/pods/:podId" component={PodDetails} exact={true} />
+								<Route exact path="/" render={() => <Redirect to="/profile" />} />
+								<Route exact path="/login" render={() => <Redirect to="/today" />} />
+							</IonRouterOutlet>
 
-          </ProtectedRoute>
+							<IonTabBar slot="bottom">
+								{/* Today */}
+								<IonTabButton tab="tab1" href="/today">
+									<IonIcon aria-hidden="true" icon={home} />
+									<IonLabel>Today</IonLabel>
+								</IonTabButton>
 
-        </AppDataProvider>
-      </IonReactRouter>
-    </IonApp>
-  );
+								{/* Schedule */}
+								<IonTabButton tab="tab2" href="/schedule">
+									<IonIcon aria-hidden="true" icon={calendar}></IonIcon>
+									<IonLabel>Schedule</IonLabel>
+								</IonTabButton>
+
+								{/* Profile */}
+								<IonTabButton tab="tab3" href="/profile">
+									<IonIcon aria-hidden="true" icon={person}></IonIcon>
+									<IonLabel>Profile</IonLabel>
+								</IonTabButton>
+
+								{/* Resources */}
+								<IonTabButton tab="tab4" href="/resources">
+									<IonIcon aria-hidden="true" icon={school}></IonIcon>
+									<IonLabel>Resources</IonLabel>
+								</IonTabButton>
+
+								{/* Contact */}
+								<IonTabButton tab="tab5" href="/contact">
+									<IonIcon aria-hidden="true" icon={peopleCircle}></IonIcon>
+									<IonLabel>ROAR Staff</IonLabel>
+								</IonTabButton>
+
+							</IonTabBar>
+						
+						</IonTabs>
+					) : (
+						<IonRouterOutlet>
+							<Route path="/login" component={Login} exact />
+							<Route render={() => <Redirect to="/login" />} />
+						</IonRouterOutlet>
+					)}
+
+
+
+					
+
+				</AppDataProvider>
+			</IonReactRouter>
+		</IonApp>
+	);
 };
 
 export default App;

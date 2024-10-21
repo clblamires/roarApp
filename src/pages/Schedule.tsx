@@ -1,7 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonButton, IonModal, IonIcon, IonAccordion, IonAccordionGroup } from '@ionic/react';
 // import { useMasterData } from '../hooks/useMasterData';
 import { useAppData } from '../context/appDataContext';
-import { getEnrollments } from '../services/firebaseService';
 import { useState } from 'react';
 import './Schedule.css';
 import { calendar, map, time, timeOutline } from 'ionicons/icons';

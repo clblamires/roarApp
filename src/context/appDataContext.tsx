@@ -21,6 +21,7 @@ interface AppDataContextType {
   getStaff: any;
   getEnrollments: (studentId?: string, semesterId?: string) => any[];
   getCurrentSemester: any;
+  getStudents: any;
   getCourseById: (id:string) => any | undefined;
   formatTime: (time:string) => any | undefined;
 }
@@ -34,6 +35,7 @@ const AppDataContext = createContext<AppDataContextType>({
   getStaff: undefined,
   getEnrollments: () => [],
   getCurrentSemester: undefined,
+  getStudents: undefined,
   getCourseById: () => undefined,
   formatTime: () => undefined,
 });
@@ -125,6 +127,8 @@ export const AppDataProvider = ({ children }: AppDataProviderProps) => {
     );
   }
 
+  const getStudents = () => data?.students;
+
   const getEnrollments = (studentId?: string, semesterId?: string) => {
     return data?.enrollments.filter((enrollment) => {
       const matchesStudent = studentId ? enrollment.student_id === studentId : true;
@@ -169,7 +173,8 @@ export const AppDataProvider = ({ children }: AppDataProviderProps) => {
         getEnrollments,
         getCurrentSemester,
         getCourseById,
-        formatTime
+        formatTime,
+        getStudents
       }}
     >
       {children}

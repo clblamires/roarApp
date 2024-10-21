@@ -1,7 +1,6 @@
 import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonSpinner, IonImg, IonList, IonButton, IonRippleEffect, IonToast } from '@ionic/react';
 import "./Profile.css";
 import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText, logOut } from 'ionicons/icons';
-import { useMasterData } from '../hooks/useMasterData';
 import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 import WSUBackground from '../components/WSUBackground';
