@@ -46,7 +46,7 @@ const Today: React.FC = () => {
 		setIsModalOpen(true);
 	}
 
-	const time_slots = ["11:00am - 11:30am", "11:30am - 12:00pm", "12:00pm - 12:30pm"];
+	const time_slots = ["11:00am", "11:30am", "12:00pm"];
 
 
 
@@ -114,7 +114,9 @@ const Today: React.FC = () => {
 
 
 				<WeatherWidget/>
+
 				<AffirmationWidget/>
+
 				<IonButton expand="block" onClick={handleLoungeScheduleButton}>
 					<IonIcon icon={schoolOutline} slot="start"></IonIcon>
 					View Study Lounge Schedule
@@ -132,15 +134,15 @@ const Today: React.FC = () => {
 							</IonButtons>
 						</IonToolbar>
 					</IonHeader>
-					<IonContent class="ion-padding">
+					<IonContent>
 						{ time_slots.map( (slot) => (
 							<IonItem key={Math.random()}>
 								{slot}
 								<IonChip>Taeya</IonChip>
 								<IonChip>Cas</IonChip>
-								<IonChip>Cas</IonChip>
-								<IonChip>Cas</IonChip>
-								<IonChip>Cas</IonChip>
+								<IonChip>Amaya</IonChip>
+								<IonChip>Itzel</IonChip>
+								<IonChip>Kili</IonChip>
 							</IonItem>
 						))}
 					</IonContent>
