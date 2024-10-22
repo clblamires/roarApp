@@ -1,4 +1,4 @@
-import { IonCard, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonToast, IonRouterOutlet, IonIcon, IonImg } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardContent, IonItem, IonLabel, IonInput, IonButton, IonToast, IonRouterOutlet, IonIcon, IonImg, IonInputPasswordToggle } from '@ionic/react';
 import { useState } from 'react';
 import { storage } from '../firebaseConfig';
 import { ref, getDownloadURL } from 'firebase/storage';
@@ -64,10 +64,12 @@ const Login: React.FC = () => {
                             <IonInput
                                 label="Student ID"
                                 labelPlacement='floating'
-                                type="text"
+                                type="password"
                                 value={studentId}
                                 onIonInput={(e)=>setStudentId(e.detail.value!)}
-                            />
+                            >
+                                <IonInputPasswordToggle slot="end"></IonInputPasswordToggle>
+                            </IonInput>
                         </IonItem>
 
                         <IonButton
