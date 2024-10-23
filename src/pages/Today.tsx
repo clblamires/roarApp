@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonLabel, IonList
 import LoadingData from '../components/LoadingData';
 import { useAppData } from '../context/appDataContext';
 import { useEffect, useState } from 'react';
-import { calendar, calendarClear, map, schoolOutline, time, timeOutline } from 'ionicons/icons';
+import { book, calendar, calendarClear, map, schoolOutline, time, timeOutline } from 'ionicons/icons';
 import NoClasses from '../components/NoClasses';
 import roarLogo from '../assets/images/roar_logo.png';
 import WeatherWidget from '../components/WeatherWidget';
@@ -75,6 +75,12 @@ const Today: React.FC = () => {
 								</IonItem>
 								<div slot="content" style={{ padding: '16px' }}>
 									<IonList lines='none'>
+										<IonItem>
+											<IonIcon icon={book} slot="start"></IonIcon>
+											<IonLabel>
+												<b>{ course.course_title }</b>
+											</IonLabel>
+										</IonItem>
 										<IonItem>
 											<IonIcon icon={timeOutline} slot="start"></IonIcon>
 											<IonLabel>

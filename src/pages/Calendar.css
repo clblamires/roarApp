@@ -1,0 +1,10 @@
+.calendar-iframe {
+    width: 100%;             /* Full width */
+    height: 100vh;           /* Full height of the viewport */
+    border: none;            /* Remove iframe border */
+}
+
+/* Ensure the IonContent fills the available space */
+ion-content {
+    --padding-bottom: 0px;   /* Remove extra padding if needed */
+}

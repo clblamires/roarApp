@@ -8,16 +8,12 @@ const Resources: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonToolbar>
+                <IonToolbar color="primary">
                     <IonTitle>{ pageTitle }</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle>{ pageTitle }</IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                This is the resources page
             </IonContent>
         </IonPage>
     )

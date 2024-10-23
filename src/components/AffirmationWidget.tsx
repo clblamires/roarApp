@@ -31,13 +31,14 @@ const AffirmationWidget: React.FC = () => {
 
     return (
         <>
-            <IonCard>
-                <IonCardContent>
+            <IonCard className="affirmation-card">
+                <IonCardContent className="affirmation-content">
+                    <div className="quotation-mark">“</div>
                     <p className="affirmation">
-                        "{ affirmation }"
+                        { affirmation }
                     </p>
                     <p className="author">
-                        { author }
+                        - { author }
                     </p>
                 </IonCardContent>
             </IonCard>

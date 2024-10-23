@@ -30,7 +30,7 @@ const Contact: React.FC = () => {
 
     return (
         <IonPage>
-            <IonContent fullscreen className="ion-padding">
+            <IonContent fullscreen>
                 <IonButton
                     expand="block"
                     color="danger"
@@ -41,7 +41,7 @@ const Contact: React.FC = () => {
                     Call Emergency Line
                 </IonButton>
                 <IonList lines="full">
-                    <IonListHeader color="primary" className="contact-list-header">Administration</IonListHeader>
+                    <IonListHeader color="primary">Administration</IonListHeader>
                     { admin.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
                         </IonItem>
                     )}
 
-                    <IonListHeader color="primary" className="contact-list-header">Graduate Assistants</IonListHeader>
+                    <IonListHeader color="primary">Graduate Assistants</IonListHeader>
                     { grad.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
@@ -73,7 +73,7 @@ const Contact: React.FC = () => {
                         </IonItem>
                     )}
 
-                    <IonListHeader color="primary" className="contact-list-header">Academic Coaches</IonListHeader>
+                    <IonListHeader color="primary">Academic Coaches</IonListHeader>
                     { academicCoach.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
@@ -89,7 +89,7 @@ const Contact: React.FC = () => {
                         </IonItem>
                     )}
 
-                    <IonListHeader color="primary" className="contact-list-header">Job Coaches</IonListHeader>
+                    <IonListHeader color="primary">Job Coaches</IonListHeader>
                     { jobCoach.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>
@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                         </IonItem>
                     )}
 
-                    <IonListHeader color="primary" className="contact-list-header">Assistive Living Advisors</IonListHeader>
+                    <IonListHeader color="primary">Assistive Living Advisors</IonListHeader>
                     { ala.map( (member:any) => 
                         <IonItem key={member.staff_id}>
                             <IonIcon slot="start" icon={person}/>

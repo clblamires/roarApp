@@ -3,7 +3,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem,
 import { useAppData } from '../context/appDataContext';
 import { useState } from 'react';
 import './Schedule.css';
-import { calendar, map, time, timeOutline } from 'ionicons/icons';
+import { book, calendar, map, school, time, timeOutline } from 'ionicons/icons';
 import WSUBackground from '../components/WSUBackground';
 import LoadingData from '../components/LoadingData';
 import NoClasses from '../components/NoClasses';
@@ -53,6 +53,10 @@ const Schedule: React.FC = () => {
         setSelectedCourse(null);
         setIsModalOpen(false);
     }
+
+    const handleCanvasClick = () => {
+        window.open( "https://wsu.instructure.com", '_blank' );
+    }
     
     const pageTitle = "Your Class Schedule";
 
@@ -78,6 +82,12 @@ const Schedule: React.FC = () => {
 								</IonItem>
 								<div slot="content" style={{ padding: '16px' }}>
 									<IonList lines='none'>
+                                        <IonItem>
+											<IonIcon icon={book} slot="start"></IonIcon>
+											<IonLabel>
+												<b>{ course.course_title }</b>
+											</IonLabel>
+										</IonItem>
 										<IonItem>
 											<IonIcon icon={timeOutline} slot="start"></IonIcon>
 											<IonLabel>
@@ -114,6 +124,13 @@ const Schedule: React.FC = () => {
 				) : (
 					<NoClasses/>
 				)}
+
+                <hr/>
+
+                <IonButton color="primary" expand='block' onClick={ handleCanvasClick }>
+                    <IonIcon slot="start" icon={ school }></IonIcon>
+                    Log into Canvas
+                </IonButton>
 
             </IonContent>
         </IonPage>

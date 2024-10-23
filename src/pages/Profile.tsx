@@ -1,6 +1,6 @@
 import { IonAvatar, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent,  IonIcon, IonItem, IonLabel, IonPage, IonAlert, IonList, IonButton } from '@ionic/react';
 import "./Profile.css";
-import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText, logOut } from 'ionicons/icons';
+import { calendar, person, peopleCircle, card, calendarOutline, school, schoolOutline, cardOutline, mailOutline, globe, documentText, logOut, caretForward } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { useEffect, useState } from 'react';
 import WSUBackground from '../components/WSUBackground';
@@ -104,7 +104,7 @@ const Profile: React.FC = () => {
 
                         { birthdayMessage() }
 
-                        <IonList inset={true} lines="none">
+                        <IonList lines="none">
                             <IonItem>
                                 <IonIcon icon={cardOutline} slot="start"></IonIcon>
                                 <IonLabel><b>WSU ID:</b> {student.student_id}</IonLabel>
@@ -117,9 +117,12 @@ const Profile: React.FC = () => {
                                 <IonIcon icon={calendarOutline} slot="start"></IonIcon>
                                 <IonLabel><b>Birthday:</b> { formatBirthday(student.date_of_birth) }</IonLabel>
                             </IonItem>
-                            <IonItem button onClick={handlePodClick}>
+                            <IonItem>
                                 <IonIcon icon={peopleCircle} slot="start"></IonIcon>
                                 <IonLabel><b>Pod:</b> {pod.pod_name}</IonLabel>
+                                <IonButton slot="end" onClick={handlePodClick}>
+                                    <IonIcon icon={caretForward}></IonIcon>
+                                </IonButton>
                             </IonItem>
                             <IonItem>
                                 <IonIcon icon={schoolOutline} slot="start"></IonIcon>
